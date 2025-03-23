@@ -24,10 +24,9 @@ def draw_rect(index):
 def draw_circle(surface, color, pos, radius=40):
     pygame.draw.circle(surface, color, pos, radius)
 
-def draw_triangle(surface, color, pos):
+def draw_rectangle(surface, color, pos):
     x, y = pos
-    points = [(x, y - 40), (x - 35, y + 40), (x + 35, y + 40)]
-    pygame.draw.polygon(surface, color, points)
+    pygame.draw.rect(surface, color, (x - 35, y - 20, 70, 40))
 
 def pick_color():
     click = pygame.mouse.get_pressed()
@@ -44,7 +43,7 @@ def pick_color():
         elif 180 <= x <= 220 and 0 <= y <= 40:
             return "circle"
         elif 230 <= x <= 270 and 0 <= y <= 40:
-            return "triangle"
+            return "rectangle"
     return color
 
 def painting(color):
@@ -53,8 +52,8 @@ def painting(color):
     if click[0]:
         if color == 'circle':
             draw_circle(screen, WHITE, (x, y))
-        elif color == 'triangle':
-            draw_triangle(screen, WHITE, (x, y))
+        elif color == 'rectangle':
+            draw_rectangle(screen, WHITE, (x, y))
         else:
             pygame.draw.circle(screen, color, (x, y), 27)
 
@@ -67,7 +66,7 @@ while True:
         draw_rect(i)
     screen.blit(eraser, (1010, 0))
     pygame.draw.circle(screen, WHITE, (200, 20), 20)
-    pygame.draw.polygon(screen, WHITE, [(250, 0), (230, 40), (270, 40)])
+    pygame.draw.rect(screen, WHITE, (230, 10, 40, 40))
 
     color = pick_color()
     painting(color)
